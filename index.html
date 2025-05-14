@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sakthira Foods</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8e1;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #c62828;
+            color: white;
+            padding: 20px;
+        }
+        .quote {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .item-card {
+            background: #ffe0b2;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .item-card img {
+            width: 150px;
+            height: 100px;
+            border-radius: 8px;
+        }
+        .item-name {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .item-price {
+            color: #4e342e;
+        }
+        .order-item-btn {
+            padding: 8px 15px;
+            background: #d84315;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        #orderForm {
+            display: none;
+            padding: 20px;
+            background: #fff3e0;
+            border-top: 2px solid #c62828;
+        }
+        input {
+            padding: 8px;
+            margin: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .ok-btn {
+            padding: 8px 15px;
+            background: #c62828;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Sakthira Foods</h1>
+    <div class="quote">Taste the Tradition on Your Plate!</div>
+</header>
+
+<div class="menu">
+    <div class="item-card">
+        <img src="images/dosa.jpg" alt="Dosa">
+        <div class="item-name">Dosa</div>
+        <div class="item-price">₹30</div>
+        <button class="order-item-btn" data-item="Dosa" data-rate="30">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/idly.jpg" alt="Idly">
+        <div class="item-name">Idly</div>
+        <div class="item-price">₹20</div>
+        <button class="order-item-btn" data-item="Idly" data-rate="20">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/poori.jpg" alt="Poori">
+        <div class="item-name">Poori</div>
+        <div class="item-price">₹35</div>
+        <button class="order-item-btn" data-item="Poori" data-rate="35">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/pongal.jpg" alt="Pongal">
+        <div class="item-name">Pongal</div>
+        <div class="item-price">₹40</div>
+        <button class="order-item-btn" data-item="Pongal" data-rate="40">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/vadai.jpg" alt="Vadai">
+        <div class="item-name">Vadai</div>
+        <div class="item-price">₹15</div>
+        <button class="order-item-btn" data-item="Vadai" data-rate="15">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/idiyappam.jpg" alt="Idiyappam">
+        <div class="item-name">Idiyappam</div>
+        <div class="item-price">₹25</div>
+        <button class="order-item-btn" data-item="Idiyappam" data-rate="25">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/uttapam.jpg" alt="Uthappam">
+        <div class="item-name">Uthappam</div>
+        <div class="item-price">₹35</div>
+        <button class="order-item-btn" data-item="Uthappam" data-rate="35">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/aapam.jpg" alt="Aapam">
+        <div class="item-name">Aapam</div>
+        <div class="item-price">₹30</div>
+        <button class="order-item-btn" data-item="Aapam" data-rate="30">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/paniyaram.jpg" alt="Paniyaram">
+        <div class="item-name">Paniyaram</div>
+        <div class="item-price">₹20</div>
+        <button class="order-item-btn" data-item="Paniyaram" data-rate="20">Order</button>
+    </div>
+    <div class="item-card">
+        <img src="images/upma.jpg" alt="Upma">
+        <div class="item-name">Upma</div>
+        <div class="item-price">₹25</div>
+        <button class="order-item-btn" data-item="Upma" data-rate="25">Order</button>
+    </div>
+</div>
+
+<div id="orderForm">
+    <h3>Place Your Order</h3>
+    <form>
+        <input type="text" placeholder="Room Number" id="room"><br>
+        <input type="text" placeholder="Item Name" id="item" readonly><br>
+        <input type="number" placeholder="Quantity" id="quantity" oninput="calculateTotal()"><br>
+        <input type="text" placeholder="Rate" id="rate" readonly><br>
+        <input type="text" placeholder="Total Amount" id="total" readonly><br>
+        <button type="button" class="ok-btn" onclick="placeOrder()">OK</button>
+    </form>
+</div>
+
+<script>
+    // Function to open order form and set item details
+    let orderButtons = document.querySelectorAll(".order-item-btn");
+    orderButtons.forEach(function(btn) {
+        btn.onclick = function() {
+            let itemName = this.getAttribute("data-item");
+            let itemRate = this.getAttribute("data-rate");
+
+            document.getElementById("item").value = itemName;
+            document.getElementById("rate").value = itemRate;
+            document.getElementById("quantity").value = "";
+            document.getElementById("total").value = "";
+            document.getElementById("room").value = "";
+
+            document.getElementById("orderForm").style.display = "block";
+        }
+    });
+
+    // Auto calculate total
+    function calculateTotal() {
+        let quantity = document.getElementById("quantity").value;
+        let rate = document.getElementById("rate").value;
+        let total = 0;
+
+        if(quantity && rate){
+            total = quantity * rate;
+        }
+        document.getElementById("total").value = total;
+    }
+
+    // Confirm order
+    function placeOrder() {
+        let room = document.getElementById("room").value;
+        let item = document.getElementById("item").value;
+        let quantity = document.getElementById("quantity").value;
+        let rate = document.getElementById("rate").value;
+        let total = document.getElementById("total").value;
+
+        if(room && item && quantity && rate && total){
+            alert("Order Placed!\nRoom: " + room + "\nItem: " + item + "\nQuantity: " + quantity + "\nRate: Rs." + rate + "\nTotal: Rs." + total);
+            document.getElementById("orderForm").style.display = "none";
+        } else {
+            alert("Please fill all the details.");
+        }
+    }
+</script>
+
+</body>
+</html>
